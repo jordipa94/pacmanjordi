@@ -3,7 +3,7 @@ export const configGame = {
   IMAGE_SIZE: 32,
   COLUMNS: 10,
   EXTRA_SIZE_HEIGHT: 300,
-  SPEED_PACMAN: 32, //
+  SPEED_PACMAN: 32,
   LIVES_PACMAN: 3,
   map: [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
