@@ -16,7 +16,7 @@ export let IMAGE_SIZE =32;
 let imgPacmanLeft;
 let imgPacmanRight, imgPacmanUp, imgPacmanDown, imgPacman;
 let myPacman;
-let wakaSound;
+let pacSound;
 let timer = 0;
 let startTimeGame = 0;
 let endTimeGame = 0;
@@ -29,7 +29,7 @@ function preload() {
   imgPacmanUp = loadImage("../media/pacUp.png", handleImage, handleError);
   imgPacmanLeft = loadImage("../media/pacLeft.png", handleImage, handleError);
   imgPacmanDown = loadImage("../media/pacDown.png", handleImage, handleError);
-  wakaSound = loadSound("../media/audio/WakaWaka.mp3");
+  pacSound = loadSound("../media/audio/pacSound.mp3");
 }
 
   function handleError() {
@@ -60,7 +60,7 @@ function setup() {
         arrFood.push(food);
       }
       else if (configGame.map[filaActual][columnaActual] === 3) {
-        myPacman = new Pacman(filaActual, columnaActual);
+        myPacman = new Pacman(filaActual, columnaActual,pacSound);
       }
     }
   }
@@ -115,7 +115,6 @@ function draw() {
 
   }
   testFinishGame();
-  wakaSound.play();
 }
 
 function keyPressed() {
@@ -153,19 +152,40 @@ function showError(){
 
 function testFinishGame(){
   if (arrFood.length === 0){
-    noLoop();
-    let theconfirm =confirm("Fi del joc, has guanyat. Desitja jugar una altra partida ?");
-    loop`();`
-    if( theconfirm)
-    {
-      restartGame();
-    }
-    else {
-      alert("Gracies per jugar");
-    }
-    loop();
+
+    alert("¡No queden fruites! Reiniciant...");
+    resetGame();
+
   }
 }
+
+function resetGame() {
+
+  arrFood.length = 0;
+  arrRocks.length = 0;
+
+  for (let filaActual = 0; filaActual < configGame.ROWS; filaActual++) {
+    for (let columnaActual = 0; columnaActual < configGame.COLUMNS; columnaActual++) {
+      if (configGame.map[filaActual][columnaActual] === 1) {
+        const roca = new gameObject(filaActual, columnaActual);
+        arrRocks.push(roca);
+      }
+      else if (configGame.map[filaActual][columnaActual] === 2) {
+        const food = new Food(filaActual, columnaActual);
+        arrFood.push(food);
+      }
+      else if (configGame.map[filaActual][columnaActual] === 3) {
+        myPacman = new Pacman(filaActual, columnaActual);
+      }
+    }
+  }
+
+  myPacman.scorePacman = 0;
+  startTimeGame = millis() / 1000;
+
+  console.log("Joc reiniciat.");
+}
+
 
 globalThis.setup = setup;
 globalThis.draw = draw;

@@ -6,12 +6,13 @@ const { IMAGE_SIZE, WIDTH_CANVAS, SPEED_PACMAN } = configGame;
 export class Pacman extends gameObject {
 
 
-  constructor(row,column){
-    super(row,column);
+  constructor(row,column,pacSound){
+    super(row,column,pacSound);
     this.directionPacman =1;
     this.speedPacman = configGame.SPEED_PACMAN;
     this.scorePacman = 0;
     this.pacmanlives=configGame.LIVES_PACMAN;
+    this.pacSound = pacSound;
   }
 
   moveRight(){
@@ -25,6 +26,7 @@ export class Pacman extends gameObject {
       this.directionPacman = 1;
       this.coordXPixels = temp;
     }
+    this.pacSound.play();
   } //End moveRight
 
   moveUp(){
@@ -37,6 +39,7 @@ export class Pacman extends gameObject {
       this.directionPacman = 2;
       this.coordYPixels = temp;
     }
+    this.pacSound.play();
 
   } //End moveUp
 
@@ -50,6 +53,7 @@ export class Pacman extends gameObject {
       this.directionPacman = 4;
       this.coordYPixels = temp;
     }
+    this.pacSound.play();
   } //End moveDown
 
   moveLeft(){
@@ -62,6 +66,7 @@ export class Pacman extends gameObject {
       this.directionPacman = 3;
       this.coordXPixels = temp;
     }
+    this.pacSound.play();
   } //End moveLeft
 
   testCollideRock(roca){
