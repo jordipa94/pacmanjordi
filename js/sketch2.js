@@ -99,7 +99,7 @@ function setup() {
   } // fi for files
   console.log("array rocks mida es : ", arrRocks.length);
   console.log("array foods mida es : ", arrFood.length);
-startTimeGame = millis();
+startTimeGame = millis() / 1000;
 } // fi setup
 
 function draw() {
@@ -131,7 +131,7 @@ function draw() {
  // textFont(font);
   textSize(20);
   textAlign(CENTER, CENTER);
-  timer = parseInt( millis() - startTimeGame);
+  timer = parseInt( (millis() /1000) - startTimeGame);
   text("Score: " + myPacman.scorePacman, 150, configGame.HEIGHT_CANVAS + 50);
 //   text("Score: " + myPacman.scorePacman, 150, HEIGHT_CANVAS + 50);
   text("Time: " + timer, 150, configGame.HEIGHT_CANVAS + 100);
