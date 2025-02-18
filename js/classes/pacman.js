@@ -82,12 +82,9 @@ export class Pacman extends gameObject {
     }
 
 testCollideFood(food) {
-  let distancia = dist(this.coordXPixels,
-    this.coordYPixels, food.coordXPixels, food.coordYPixels);
-  // console.log( "Distancia entre pacman i roca: " + distancia);
+  let distancia = dist(this.coordXPixels,this.coordYPixels, food.coordXPixels, food.coordYPixels);
 
   if (distancia < IMAGE_SIZE) {
-    console.log("Has agafat una food");
     return true;
   } else {
     return false;
@@ -95,8 +92,7 @@ testCollideFood(food) {
 }
 
 testCollideFinal(final){
-  let distancia = dist(this.coordXPixels,
-    this.coordYPixels, final.coordXPixels, final.coordYPixels);
+  let distancia = dist(this.coordXPixels,this.coordYPixels, final.coordXPixels, final.coordYPixels);
 
   if (distancia < IMAGE_SIZE && this.key === false) {
     alert("Necessites la clau!");

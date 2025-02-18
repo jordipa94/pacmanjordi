@@ -163,15 +163,6 @@ function showError(){
   remove();
 }
 
-function testFinishGame(){
-  if (arrFood.length === 0){
-
-    //alert("¡No queden fruites! Reiniciant...");
-    //resetGame();
-
-  }
-}
-
 export function resetGame() {
 
   arrFood.length = 0;
