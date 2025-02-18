@@ -1,5 +1,6 @@
 import {gameObject} from './gameObject.js';
 import {configGame} from "../constants.js";
+import {resetGame} from "../sketch.js";
 
 const { IMAGE_SIZE, WIDTH_CANVAS, SPEED_PACMAN } = configGame;
 
@@ -10,7 +11,7 @@ export class Pacman extends gameObject {
     super(row,column,pacSound);
     this.directionPacman =1;
     this.speedPacman = configGame.SPEED_PACMAN;
-    this.scorePacman = 0;
+    this.key = false;
     this.pacmanlives=configGame.LIVES_PACMAN;
     this.pacSound = pacSound;
   }
@@ -72,16 +73,14 @@ export class Pacman extends gameObject {
   testCollideRock(roca){
     let distancia = dist(this.coordXPixels,
       this.coordYPixels, roca.coordXPixels, roca.coordYPixels);
-    // console.log( "Distancia entre pacman i roca: " + distancia);
 
     if (distancia < IMAGE_SIZE) {
-      //mHE FOTUT nata amb una roca
       alert("Has xocat amb una roca, has perdut una vida");
       this.pacmanlives--;
       this.spawnPacman();
-      } //End switch
+      }
     }
-      //mHE FOTUT nata amb una roca
+
 testCollideFood(food) {
   let distancia = dist(this.coordXPixels,
     this.coordYPixels, food.coordXPixels, food.coordYPixels);
@@ -94,8 +93,24 @@ testCollideFood(food) {
     return false;
   }
 }
+
+testCollideFinal(final){
+  let distancia = dist(this.coordXPixels,
+    this.coordYPixels, final.coordXPixels, final.coordYPixels);
+
+  if (distancia < IMAGE_SIZE && this.key === false) {
+    alert("Necessites la clau!");
+    this.spawnPacman();
+    }
+
+  if (distancia < IMAGE_SIZE && this.key === true) {
+    alert("Has guanyat!");
+    resetGame();
+    }
+  }
+
   spawnPacman(){
-    this.coordXPixels = 4* IMAGE_SIZE;
+    this.coordXPixels = 5* IMAGE_SIZE;
     this.coordYPixels = 6 * IMAGE_SIZE;
   }
 }

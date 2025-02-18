@@ -11,6 +11,9 @@ const arrRocks = [];
 let imgFood;
 const arrFood = [];
 
+let imgFinal;
+const arrFinal = [];
+
 export let IMAGE_SIZE =32;
 
 let imgPacmanLeft;
@@ -23,12 +26,13 @@ let endTimeGame = 0;
 
 function preload() {
   imgRock = loadImage("../media/roca.png", handleImage, handleError);
-  imgFood = loadImage("../media/food.png", handleImage, handleError);
-  imgPacman = loadImage("../media/pacLeft.png", handleImage, handleError);
-  imgPacmanRight = loadImage("../media/pacRight.png", handleImage, handleError);
-  imgPacmanUp = loadImage("../media/pacUp.png", handleImage, handleError);
-  imgPacmanLeft = loadImage("../media/pacLeft.png", handleImage, handleError);
-  imgPacmanDown = loadImage("../media/pacDown.png", handleImage, handleError);
+  imgFood = loadImage("../media/key.png", handleImage, handleError);
+  imgFinal = loadImage("../media/final.png", handleImage, handleError);
+  imgPacman = loadImage("../media/marioLeft.png", handleImage, handleError);
+  imgPacmanRight = loadImage("../media/marioRight.png", handleImage, handleError);
+  imgPacmanUp = loadImage("../media/marioUp.png", handleImage, handleError);
+  imgPacmanLeft = loadImage("../media/marioLeft.png", handleImage, handleError);
+  imgPacmanDown = loadImage("../media/marioDown.png", handleImage, handleError);
   pacSound = loadSound("../media/audio/pacSound.mp3");
 }
 
@@ -62,10 +66,12 @@ function setup() {
       else if (configGame.map[filaActual][columnaActual] === 3) {
         myPacman = new Pacman(filaActual, columnaActual,pacSound);
       }
+      else if (configGame.map[filaActual][columnaActual] === 4) {
+        const final = new gameObject(filaActual, columnaActual);
+        arrFinal.push(final);
+      }
     }
   }
-  console.log("array rocks mida es : ", arrRocks.length);
-  console.log("array foods mida es : ", arrFood.length);
 startTimeGame = millis() / 1000;
 }
 
@@ -79,6 +85,10 @@ function draw() {
     arrFood[i].showObject(imgFood);
   }
 
+  for (let i = 0; i < arrFinal.length; i++) {
+    arrFinal[i].showObject(imgFinal);
+  }
+
   for (let i = 0; i < arrRocks.length; i++) {
     myPacman.testCollideRock ( arrRocks[i]);
   }
@@ -86,17 +96,22 @@ function draw() {
   for (let i = 0; i < arrFood.length; i++) {
     let resultTest = myPacman.testCollideFood(arrFood[i]);
     if (resultTest) {
-      myPacman.scorePacman = myPacman.scorePacman + arrFood[i].pointsFood;
+      myPacman.key = true;
       arrFood.splice(i, 1);
     }
+  }
+
+  for (let i = 0; i < arrFinal.length; i++) {
+    myPacman.testCollideFinal ( arrFinal[i]);
   }
 
   textSize(20);
   textAlign(CENTER, CENTER);
   timer = parseInt( (millis() /1000) - startTimeGame);
-  text("Score: " + myPacman.scorePacman, 150, configGame.HEIGHT_CANVAS + 50);
 
-  text("Time: " + timer, 150, configGame.HEIGHT_CANVAS + 100);
+  text("Time: " + timer, 175, configGame.HEIGHT_CANVAS + 50);
+
+  text("Tens el power-up ? " + myPacman.key,175,configGame.HEIGHT_CANVAS + 100 );
 
   switch(myPacman.directionPacman){
     case 1: //Move right
@@ -119,10 +134,8 @@ function draw() {
 
 function keyPressed() {
   if (keyCode === RIGHT_ARROW) {
-    console.log("Dreta");
     myPacman.moveRight();
   } else if (keyCode === LEFT_ARROW) {
-    console.log("Esquerra");
     myPacman.moveLeft();
   } else if (keyCode === UP_ARROW) {
     myPacman.moveUp();
@@ -153,13 +166,13 @@ function showError(){
 function testFinishGame(){
   if (arrFood.length === 0){
 
-    alert("¡No queden fruites! Reiniciant...");
-    resetGame();
+    //alert("¡No queden fruites! Reiniciant...");
+    //resetGame();
 
   }
 }
 
-function resetGame() {
+export function resetGame() {
 
   arrFood.length = 0;
   arrRocks.length = 0;
@@ -177,13 +190,17 @@ function resetGame() {
       else if (configGame.map[filaActual][columnaActual] === 3) {
         myPacman = new Pacman(filaActual, columnaActual);
       }
+      else if (configGame.map[filaActual][columnaActual] === 4) {
+        const final = new gameObject(filaActual, columnaActual);
+        arrFinal.push(final);
+      }
     }
   }
 
-  myPacman.scorePacman = 0;
+  myPacman.key = false;
   startTimeGame = millis() / 1000;
 
-  console.log("Joc reiniciat.");
+  alert("Reiniciant joc...");
 }
 
 
