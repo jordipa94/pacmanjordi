@@ -16,13 +16,11 @@ const arrFinal = [];
 
 export let IMAGE_SIZE =32;
 
-let imgPacmanLeft;
-let imgPacmanRight, imgPacmanUp, imgPacmanDown, imgPacman;
+let imgPacmanLeft,imgPacmanRight, imgPacmanUp, imgPacmanDown, imgPacman;
 let myPacman;
 let pacSound;
 let timer = 0;
 let startTimeGame = 0;
-let endTimeGame = 0;
 
 function preload() {
   imgRock = loadImage("../media/roca.png", handleImage, handleError);
@@ -76,7 +74,7 @@ startTimeGame = millis() / 1000;
 }
 
 function draw() {
-  background(171, 248, 168);
+  background(128,128,128);
   for (let i = 0; i < arrRocks.length; i++) {
     arrRocks[i].showObject(imgRock);
   }
@@ -178,7 +176,7 @@ export function resetGame() {
         arrFood.push(food);
       }
       else if (configGame.map[filaActual][columnaActual] === 3) {
-        myPacman = new Pacman(filaActual, columnaActual);
+        myPacman = new Pacman(filaActual, columnaActual,pacSound);
       }
       else if (configGame.map[filaActual][columnaActual] === 4) {
         const final = new gameObject(filaActual, columnaActual);
@@ -192,7 +190,6 @@ export function resetGame() {
 
   alert("Reiniciant joc...");
 }
-
 
 globalThis.setup = setup;
 globalThis.draw = draw;

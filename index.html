@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title></title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <meta name="description" content="">
 
   <meta property="og:title" content="">
@@ -20,7 +21,6 @@
 
   <link rel="manifest" href="site.webmanifest">
   <meta name="theme-color" content="#fafafa">
-  <!-- Place favicon.ico in the root directory -->
   <script src="js/libraries/p5.min.js" type="module"></script>
   <script src="js/libraries/addons/p5.sound.js" type="module"></script>
   <script src="js/sketch.js" type="module"></script>
@@ -28,8 +28,74 @@
 
 <body>
 
-  <div id="sketch-pacman"></div>
+<header class="w3-bar w3-grey w3-center">
+  <nav class="w3-bar">
+      <a class="w3-bar-item w3-button" href="">START GAME</a>
+      <a class="w3-bar-item w3-button" onclick="mostrarDiv('help')">HELP</a>
+      <a class="w3-bar-item w3-button" onclick="mostrarDiv('info')">INFO</a>
+      <a class="w3-bar-item w3-button" onclick="mostrarDiv('credits')">CREDITS</a>
+  </nav>
+</header>
+
+<!-- DIV HELP -->
+<div id="help" style="margin: 0px;" class="w3-panel w3-pale-red w3-hide w3-padding">
+  <p><strong>HELP:</strong> Utilitza les fletxes del teclat per moure a Mario.</p>
+</div>
+
+<!-- DIV INFO -->
+<div id="info" style="margin: 0px;" class="w3-panel w3-pale-red w3-hide w3-padding">
+  <p><strong>INFO:</strong> Per guanyar tens que agafar la seta (Power-up) i arribar al castell de Bowser.</p>
+
+  <br>
+
+  <p id="navegador"></p>
+  <p id="versioNavegador"></p>
+  <p id="sistemaOperatiu"></p>
+  <p id="dataModificacio"></p>
+  <p id="idioma"></p>
+  <p id="hostname"></p>
+  <p id="urlCompleta"></p>
+</div>
+
+<!-- DIV CREDITS -->
+<div id="credits" style="margin: 0px;" class="w3-panel w3-pale-red w3-hide w3-padding">
+  <p><strong>CREDITS:</strong> Creador: Jordi Pujol Altadill</p>
+  <a href="https://github.com/jordipa94/pacmanjordi"><img style="width: 28px; padding-right: 5px;" src="media/github.png">REPOSITORI DE GITHUB</a>
+</div>
+
+  <div style="padding-left: 40%;" id="sketch-pacman"></div> <!-- JOC -->
   <div id="error-holder"></div>
+
+<script>
+
+  function mostrarDiv(id) {
+      let divs = document.querySelectorAll(".w3-panel");
+      divs.forEach(div => div.classList.add("w3-hide"));
+      
+      let div = document.getElementById(id);
+      if (div.classList.contains("w3-hide")) {
+          div.classList.remove("w3-hide");
+      }
+  }
+
+let navegador = window.navigator.userAgent;
+let versioNavegador = window.navigator.appVersion;
+let sistemaOperatiu = window.navigator.platform;
+let dataModificacio = document.lastModified;
+let idioma = window.navigator.language;
+let hostname = window.location.hostname;
+let urlCompleta = window.location.href;
+
+document.getElementById("navegador").innerText = "Navegador utilitzat: " + navegador;
+document.getElementById("versioNavegador").innerText = "Versió del Navegador: " + versioNavegador;
+document.getElementById("sistemaOperatiu").innerText = "SO en què es va compilar el navegador: " + sistemaOperatiu;
+document.getElementById("dataModificacio").innerText = "Data darrera modificació: " + dataModificacio;
+document.getElementById("idioma").innerText = "Idioma del navegador: " + idioma;
+document.getElementById("hostname").innerText = "Hostname: " + hostname;
+document.getElementById("urlCompleta").innerText = "URL completa: " + urlCompleta;
+
+
+</script>
 
 </body>
 </html>
