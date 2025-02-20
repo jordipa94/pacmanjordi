@@ -129,7 +129,6 @@ function draw() {
     default : myPacman.showObject(imgPacman);
 
   }
-  testFinishGame();
 }
 
 function keyPressed() {
