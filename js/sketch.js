@@ -19,6 +19,8 @@ export let IMAGE_SIZE =32;
 let imgPacmanLeft,imgPacmanRight, imgPacmanUp, imgPacmanDown, imgPacman;
 let myPacman;
 let pacSound;
+let powerUpSound;
+let winSound;
 let timer = 0;
 let startTimeGame = 0;
 
@@ -32,6 +34,8 @@ function preload() {
   imgPacmanLeft = loadImage("../media/marioLeft.png", handleImage, handleError);
   imgPacmanDown = loadImage("../media/marioDown.png", handleImage, handleError);
   pacSound = loadSound("../media/audio/pacSound.mp3");
+  powerUpSound = loadSound("../media/audio/powerUpSound.mp3");
+  winSound = loadSound("../media/audio/winSound.mp4");
 }
 
   function handleError() {
@@ -62,7 +66,7 @@ function setup() {
         arrFood.push(food);
       }
       else if (configGame.map[filaActual][columnaActual] === 3) {
-        myPacman = new Pacman(filaActual, columnaActual,pacSound);
+        myPacman = new Pacman(filaActual, columnaActual,pacSound,winSound);
       }
       else if (configGame.map[filaActual][columnaActual] === 4) {
         const final = new gameObject(filaActual, columnaActual);
@@ -94,6 +98,7 @@ function draw() {
   for (let i = 0; i < arrFood.length; i++) {
     let resultTest = myPacman.testCollideFood(arrFood[i]);
     if (resultTest) {
+      powerUpSound.play();
       myPacman.key = true;
       arrFood.splice(i, 1);
     }
@@ -150,7 +155,6 @@ function showError(){
   errorImage.toString();
   const parent = document.getElementById("error-holder");
   const node = document.createElement("media");
-  node.setAttribute("src", "./media/tristesa.webp");
   node.setAttribute("alt", "Imatge Error");
   node.setAttribute("width", 300);
   node.setAttribute("height", 300);
@@ -176,7 +180,7 @@ export function resetGame() {
         arrFood.push(food);
       }
       else if (configGame.map[filaActual][columnaActual] === 3) {
-        myPacman = new Pacman(filaActual, columnaActual,pacSound);
+        myPacman = new Pacman(filaActual, columnaActual,pacSound,winSound);
       }
       else if (configGame.map[filaActual][columnaActual] === 4) {
         const final = new gameObject(filaActual, columnaActual);

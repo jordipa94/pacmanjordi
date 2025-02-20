@@ -7,13 +7,14 @@ const { IMAGE_SIZE, WIDTH_CANVAS, SPEED_PACMAN } = configGame;
 export class Pacman extends gameObject {
 
 
-  constructor(row,column,pacSound){
+  constructor(row,column,pacSound,winSound){
     super(row,column,pacSound);
     this.directionPacman =1;
     this.speedPacman = configGame.SPEED_PACMAN;
     this.key = false;
     this.pacmanlives=configGame.LIVES_PACMAN;
     this.pacSound = pacSound;
+    this.winSound = winSound;
   }
 
   moveRight(){
@@ -100,6 +101,7 @@ testCollideFinal(final){
     }
 
   if (distancia < IMAGE_SIZE && this.key === true) {
+    this.winSound.play();
     alert("Has guanyat!");
     resetGame();
     }
