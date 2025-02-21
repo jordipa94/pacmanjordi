@@ -112,9 +112,9 @@ function draw() {
   textAlign(CENTER, CENTER);
   timer = parseInt( (millis() /1000) - startTimeGame);
 
-  text("Time: " + timer, 175, configGame.HEIGHT_CANVAS + 50);
+  text("⏳Time: " + timer + "⏳", 175, configGame.HEIGHT_CANVAS + 50);
 
-  text("Tens el power-up ? " + myPacman.key,175,configGame.HEIGHT_CANVAS + 100 );
+  text("🍄Tens el power-up ? " + myPacman.key + "🍄",175,configGame.HEIGHT_CANVAS + 100 );
 
   switch(myPacman.directionPacman){
     case 1: //Move right
