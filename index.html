@@ -48,6 +48,8 @@
 
   <br>
 
+  <p><strong>INFORMACIO DEL SISTEMA:</strong></p>
+
   <p id="navegador"></p>
   <p id="versioNavegador"></p>
   <p id="sistemaOperatiu"></p>
@@ -60,6 +62,7 @@
 <!-- DIV CREDITS -->
 <div id="credits" style="margin: 0px;" class="w3-panel w3-pale-red w3-hide w3-padding">
   <p><strong>CREDITS:</strong> Creador: Jordi Pujol Altadill</p>
+  <p><strong>ASSIGNATURA:</strong> M6 - Desenvolupament Web Entorn Client</p>
   <a href="https://github.com/jordipa94/pacmanjordi"><img style="width: 28px; padding-right: 5px;" src="media/github.png">REPOSITORI DE GITHUB</a>
 </div>
 
@@ -68,22 +71,25 @@
 
 <script>
 
-  function mostrarDiv(id) {
-      let divs = document.querySelectorAll(".w3-panel");
-      divs.forEach(div => div.classList.add("w3-hide"));
-      
-      let div = document.getElementById(id);
-      if (div.classList.contains("w3-hide")) {
-          div.classList.remove("w3-hide");
-      }
-  }
+function mostrarDiv(id) {
+    let divs = document.querySelectorAll(".w3-panel");
+    divs.forEach(div => {
+        if (div.id !== id) {
+            div.classList.add("w3-hide");
+        }
+    });
+    
+    let div = document.getElementById(id);
+    if (div) {
+        div.classList.toggle("w3-hide");
+    }
+}
 
 let navegador = window.navigator.userAgent;
 let versioNavegador = window.navigator.appVersion;
 let sistemaOperatiu = window.navigator.platform;
 let dataModificacio = document.lastModified;
 let idioma = window.navigator.language;
-let hostname = window.location.hostname;
 let urlCompleta = window.location.href;
 
 document.getElementById("navegador").innerText = "Navegador utilitzat: " + navegador;
@@ -91,7 +97,6 @@ document.getElementById("versioNavegador").innerText = "Versió del Navegador: "
 document.getElementById("sistemaOperatiu").innerText = "SO en què es va compilar el navegador: " + sistemaOperatiu;
 document.getElementById("dataModificacio").innerText = "Data darrera modificació: " + dataModificacio;
 document.getElementById("idioma").innerText = "Idioma del navegador: " + idioma;
-document.getElementById("hostname").innerText = "Hostname: " + hostname;
 document.getElementById("urlCompleta").innerText = "URL completa: " + urlCompleta;
 
 

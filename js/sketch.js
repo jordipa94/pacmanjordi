@@ -38,7 +38,7 @@ function preload() {
   winSound = loadSound("../media/audio/winSound.mp4");
 }
 
-  function handleError() {
+function handleError() {
   console.error("Error carregar alguna imatge");
   try {
     throw new ErrorPac(20, "Falta imatge per carregar");
@@ -49,7 +49,7 @@ function preload() {
 }
 
 function handleImage() {
-  console.error("Images carregada correctament");
+  console.log("Images carregada correctament");
   numberImagesLoaded++;
 }
 
