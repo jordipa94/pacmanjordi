@@ -18,7 +18,6 @@ export class Pacman extends gameObject {
   }
 
   moveRight(){
-    //Move pacman right
     let temp = this.coordXPixels+this.speedPacman;
     if ( temp < 0 || temp > (WIDTH_CANVAS - IMAGE_SIZE) ){
       console.log("Error, no es pot moure a la dreta");
@@ -29,7 +28,7 @@ export class Pacman extends gameObject {
       this.coordXPixels = temp;
     }
     this.pacSound.play();
-  } //End moveRight
+  }
 
   moveUp(){
     let temp = this.coordYPixels-this.speedPacman;
@@ -43,7 +42,7 @@ export class Pacman extends gameObject {
     }
     this.pacSound.play();
 
-  } //End moveUp
+  }
 
   moveDown(){
     let temp = this.coordYPixels+this.speedPacman;
@@ -56,7 +55,7 @@ export class Pacman extends gameObject {
       this.coordYPixels = temp;
     }
     this.pacSound.play();
-  } //End moveDown
+  }
 
   moveLeft(){
     let temp = this.coordXPixels-this.speedPacman;
@@ -69,7 +68,7 @@ export class Pacman extends gameObject {
       this.coordXPixels = temp;
     }
     this.pacSound.play();
-  } //End moveLeft
+  }
 
   testCollideRock(roca){
     let distancia = dist(this.coordXPixels,

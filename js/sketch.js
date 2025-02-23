@@ -117,16 +117,16 @@ function draw() {
   text("🍄Tens el power-up ? " + myPacman.key + "🍄",175,configGame.HEIGHT_CANVAS + 100 );
 
   switch(myPacman.directionPacman){
-    case 1: //Move right
+    case 1:
             myPacman.showObject(imgPacmanRight);
             break;
-    case 2: //Move up
+    case 2:
             myPacman.showObject(imgPacmanUp);
             break;
-    case 3: //Move left
+    case 3:
             myPacman.showObject(imgPacmanLeft);
             break
-    case 4: //Move down
+    case 4:
             myPacman.showObject(imgPacmanDown);
             break;
     default : myPacman.showObject(imgPacman);

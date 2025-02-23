@@ -30,7 +30,6 @@
 
 <header class="w3-bar w3-grey w3-center">
   <nav class="w3-bar">
-      <a class="w3-bar-item w3-button" href="">START GAME</a>
       <a class="w3-bar-item w3-button" onclick="mostrarDiv('help')">HELP</a>
       <a class="w3-bar-item w3-button" onclick="mostrarDiv('info')">INFO</a>
       <a class="w3-bar-item w3-button" onclick="mostrarDiv('credits')">CREDITS</a>
@@ -66,10 +65,30 @@
   <a href="https://github.com/jordipa94/pacmanjordi"><img style="width: 28px; padding-right: 5px;" src="media/github.png">REPOSITORI DE GITHUB</a>
 </div>
 
-  <div style="padding-left: 40%;" id="sketch-pacman"></div> <!-- JOC -->
+  <div style="padding-left: 40%;display: none;" id="sketch-pacman"></div> <!-- JOC -->
   <div id="error-holder"></div>
 
+  <div id="intro" class="w3-container w3-center w3-padding-large w3-dark-grey w3-round-large w3-animate-opacity" style="max-width: 600px; margin: auto; margin-top: 50px;">
+    <h1 class="w3-text-yellow w3-xlarge w3-text-shadow">🌟 Benvingut al meu joc de Mario 🌟</h1>
+    <p>Ajuda a Mario a arribar al castell de Bowser i rescatar a Peach.</p>
+    <p>Revisa els menus "🆘HELP" "ℹ️INFO" i "👤CREDITS" per mes info.</p>
+
+    <ul class="w3-ul w3-border w3-light-grey w3-round">
+        <li class="w3-padding">🎮 Mou-te amb les tecles de direccio</li>
+        <li class="w3-padding">🔑 Recull la seta per avançar al castell de Bowser</li>
+    </ul>
+
+    <button class="w3-button w3-red w3-round w3-xlarge w3-margin-top w3-hover-yellow" onclick="startGame()">START GAME</button>
+  </div>
+
 <script>
+
+function startGame() {
+
+  document.getElementById("sketch-pacman").style.display = "block";
+  document.getElementById("intro").style.display = "none";
+
+}
 
 function mostrarDiv(id) {
     let divs = document.querySelectorAll(".w3-panel");
