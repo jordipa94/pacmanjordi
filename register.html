@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>REGISTER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="w3-container w3-card w3-padding w3-light-grey form-container">
+  <h2 class="w3-center">📋 REGISTER</h2>
+  
+  <form id="registerForm" onsubmit="return validarFormulari()">
+    <label>Nom:</label>
+    <input class="w3-input w3-margin-bottom" type="text" id="nom" required>
+
+    <label>Cognoms:</label>
+    <input class="w3-input w3-margin-bottom" type="text" id="cognoms" required>
+
+    <label>Contrasenya:</label>
+    <input class="w3-input w3-margin-bottom" type="password" id="password" required>
+
+    <label>Data de naixement:</label>
+    <input class="w3-input w3-margin-bottom" type="date" id="data" required>
+
+    <label>Correu electronic:</label>
+    <input class="w3-input w3-margin-bottom" type="email" id="mail" required>
+
+    <div id="missatgeError" class="w3-text-red w3-margin-bottom"></div>
+
+    <button class="w3-button w3-blue w3-block" type="submit">Registrar</button>
+    <p class="w3-small w3-center w3-margin-top">Ja tens compte? <a href="login.html">Inicia sessio</a></p>
+  </form>
+</div>
+
+<script>
+function validarFormulari() {
+  const nom = document.getElementById("nom").value.trim();
+  const cognoms = document.getElementById("cognoms").value.trim();
+  const password = document.getElementById("password").value;
+  const data = document.getElementById("data").value;
+  const mail = document.getElementById("mail").value.trim();
+  const error = document.getElementById("missatgeError");
+
+  // RESET ERROR
+  error.textContent = "";
+
+  // VALIDAR FORMULARI
+  if (nom.length < 2) {
+    error.textContent = "⚠️ El nom ha de tenir almenys 2 caracters.";
+    return false;
+  }
+
+  if (cognoms.length < 2) {
+    error.textContent = "⚠️ Els cognoms han de tenir almenys 2 caracters.";
+    return false;
+  }
+
+  if (password.length < 4) {
+    error.textContent = "⚠️ La contrasenya ha de tenir almenys 4 caracters.";
+    return false;
+  }
+
+  const dataNaixement = new Date(data);
+  const avui = new Date();
+  if (!data || dataNaixement >= avui) {
+    error.textContent = "⚠️ Introdueix una data de naixement valida.";
+    return false;
+  }
+
+  const regexMail = /^[^@]+@[^@]+\.[a-z]{2,}$/i;
+  if (!regexMail.test(mail)) {
+    error.textContent = "⚠️ El correu electronic no es valid.";
+    return false;
+  }
+
+  // SI ES VALIDA EL FORMULARI, GUARDAR DADES
+  localStorage.setItem("loggedUser", nom);
+  localStorage.setItem("cognoms", cognoms);
+  localStorage.setItem("mail", mail);
+  localStorage.setItem("userPassword", password);
+
+  window.location.href = "login.html";
+  return false;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>LOGIN</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <style>
+    .form-container {
+      max-width: 500px;
+      margin: auto;
+      margin-top: 60px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="w3-container w3-card w3-padding w3-light-grey form-container">
+  <h2 class="w3-center">🔐 LOGIN</h2>
+  
+  <form id="loginForm" onsubmit="return validarLogin()">
+    <label>Nom:</label>
+    <input class="w3-input w3-margin-bottom" type="text" id="nom" required>
+
+    <label>Contrasenya:</label>
+    <input class="w3-input w3-margin-bottom" type="password" id="password" required>
+
+    <div id="missatgeError" class="w3-text-red w3-margin-bottom"></div>
+
+    <button class="w3-button w3-green w3-block" type="submit">Entrar</button>
+    <p class="w3-small w3-center w3-margin-top">Encara no tens compte? <a href="register.html">Registra't</a></p>
+  </form>
+</div>
+
+<script>
+function validarLogin() {
+  const nom = document.getElementById("nom").value.trim();
+  const password = document.getElementById("password").value;
+  const error = document.getElementById("missatgeError");
+
+  // Reset missatge
+  error.textContent = "";
+
+  const usuariGuardat = localStorage.getItem("loggedUser");
+  const contrasenyaGuardada = localStorage.getItem("userPassword");
+
+  if (nom === usuariGuardat && password === contrasenyaGuardada) {
+    localStorage.setItem("loggedIn", "true");
+    window.location.href = "index.html";
+  } else {
+    error.textContent = "⚠️ Nom d'usuari o contrasenya incorrectes.";
+  }
+
+  return false;
+}
+</script>
+
+</body>
+</html>

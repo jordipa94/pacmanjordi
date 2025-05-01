@@ -24,15 +24,30 @@
   <script src="js/libraries/p5.min.js" type="module"></script>
   <script src="js/libraries/addons/p5.sound.js" type="module"></script>
   <script src="js/sketch.js" type="module"></script>
+
+  <script>
+    if (localStorage.getItem("loggedIn") !== "true") {
+      window.location.href = "login.html";
+    }
+  </script>
+
 </head>
 
 <body>
 
-<header class="w3-bar w3-grey w3-center">
+<header class="w3-bar w3-grey">
   <nav class="w3-bar">
-      <a class="w3-bar-item w3-button" onclick="mostrarDiv('help')">HELP</a>
-      <a class="w3-bar-item w3-button" onclick="mostrarDiv('info')">INFO</a>
-      <a class="w3-bar-item w3-button" onclick="mostrarDiv('credits')">CREDITS</a>
+    <a class="w3-bar-item w3-button" onclick="mostrarDiv('help')">HELP</a>
+    <a class="w3-bar-item w3-button" onclick="mostrarDiv('info')">INFO</a>
+    <a class="w3-bar-item w3-button" onclick="mostrarDiv('credits')">CREDITS</a>
+    <a class="w3-bar-item w3-button" onclick="mostrarDiv('userInfo')">USER INFO</a>
+    <a class="w3-bar-item w3-button" onclick="mostrarDiv('ranking')">🏆RANKING</a>
+
+    <div class="w3-bar-item w3-right">
+      <span class="w3-bar-item">👤Username: <span id="username"></span></span>
+      <button class="w3-button w3-red w3-small" onclick="logout()">Logout</button>
+    </div>
+
   </nav>
 </header>
 
@@ -65,6 +80,49 @@
   <a href="https://github.com/jordipa94/pacmanjordi"><img style="width: 28px; padding-right: 5px;" src="media/github.png">REPOSITORI DE GITHUB</a>
 </div>
 
+<!-- DIV USER INFO -->
+<div id="userInfo" style="margin: 0px;" class="w3-panel w3-pale-red w3-hide w3-padding">
+  <span class="w3-bar-item">👤Cognoms del usuari: <span id="cognoms"></span></span>
+  <p class="w3-bar-item">📩Mail del usuari: <span id="mail"></span></p>
+  <p class="w3-bar-item">🔝Record del usuari: 8.934</p>
+  <p class="w3-bar-item">🕹️Total de partides: 33</p>
+  <p class="w3-bar-item">🏆Partides guanyades: 22</p>
+  <p class="w3-bar-item">👎Partides perdudes: 11</p>
+</div>
+
+<!-- DIV RANKING -->
+<div id="ranking" class="w3-panel w3-hide w3-padding">
+  <label for="quantitat">🔢 Mostrar els millors:</label>
+  <select id="quantitat" class="w3-select w3-border w3-margin-bottom" onchange="actualitzarTaula()">
+    <option value="10">Top 10</option>
+    <option value="20">Top 20</option>
+    <option value="30" selected>Top 30</option>
+  </select>
+
+  <table class="w3-table w3-bordered w3-hoverable">
+    <thead>
+      <tr>
+        <th onclick="ordenar('posicio')">🏅 Posicio</th>
+        <th onclick="ordenar('nom')">👤 Nom</th>
+        <th onclick="ordenar('punts')">⭐ Punts</th>
+      </tr>
+    </thead>
+    <tbody id="taulaJugadors">
+      <!-- DADES DE LA FUNCIO -->
+    </tbody>
+  </table>
+</div>
+
+  <div id="difficulty-selector">
+    <h2>Selecciona la dificultat:</h2>
+    <select id="difficulty">
+        <option value="easy">Fàcil</option>
+        <option value="medium">Mitjà</option>
+        <option value="hard">Difícil</option>
+    </select>
+    <button id="start-game">Començar joc</button>
+  </div>
+
   <div style="padding-left: 40%;display: none;" id="sketch-pacman"></div> <!-- JOC -->
   <div id="error-holder"></div>
 
@@ -81,45 +139,7 @@
     <button class="w3-button w3-red w3-round w3-xlarge w3-margin-top w3-hover-yellow" onclick="startGame()">START GAME</button>
   </div>
 
-<script>
-
-function startGame() {
-
-  document.getElementById("sketch-pacman").style.display = "block";
-  document.getElementById("intro").style.display = "none";
-
-}
-
-function mostrarDiv(id) {
-    let divs = document.querySelectorAll(".w3-panel");
-    divs.forEach(div => {
-        if (div.id !== id) {
-            div.classList.add("w3-hide");
-        }
-    });
-    
-    let div = document.getElementById(id);
-    if (div) {
-        div.classList.toggle("w3-hide");
-    }
-}
-
-let navegador = window.navigator.userAgent;
-let versioNavegador = window.navigator.appVersion;
-let sistemaOperatiu = window.navigator.platform;
-let dataModificacio = document.lastModified;
-let idioma = window.navigator.language;
-let urlCompleta = window.location.href;
-
-document.getElementById("navegador").innerText = "Navegador utilitzat: " + navegador;
-document.getElementById("versioNavegador").innerText = "Versió del Navegador: " + versioNavegador;
-document.getElementById("sistemaOperatiu").innerText = "SO en què es va compilar el navegador: " + sistemaOperatiu;
-document.getElementById("dataModificacio").innerText = "Data darrera modificació: " + dataModificacio;
-document.getElementById("idioma").innerText = "Idioma del navegador: " + idioma;
-document.getElementById("urlCompleta").innerText = "URL completa: " + urlCompleta;
-
-
-</script>
+  <script src="js/index.js"></script>
 
 </body>
 </html>
